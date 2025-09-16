@@ -1,0 +1,41 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+*.swp
+*.swo
+
+# PyCharm / VSCode
+.idea/
+.vscode/
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# Model files
+*.onnx
+
+# MinIO/Storage temporary files
+minio_data/
+postgres_data/

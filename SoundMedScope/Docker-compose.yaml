@@ -1,0 +1,100 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - msSystem
+  sensor:
+    build: 
+      context: ./SensorMS
+      dockerfile: Dockerfile
+    container_name: sensor_ms 
+    networks:
+      - msSystem 
+    depends_on:
+      mosquitto:
+          condition: service_started
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./StorageMS/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - msSystem
+  storage:
+    build: 
+      context: ./StorageMS
+      dockerfile: Dockerfile
+    env_file:
+    - ./StorageMS/.env
+    container_name: storage_ms
+    ports:
+      - "5002:5002"
+    depends_on:
+      sensor:
+         condition: service_started
+      mosquitto:
+          condition: service_started
+      postgres:
+          condition: service_started
+    networks:
+      - msSystem
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"  # console
+    env_file:
+        - ./StorageMS/.env
+    command: server /data --console-address ":9001"
+    networks:
+      - msSystem
+    volumes:
+      - minio_data:/data  
+  apigateway:
+    build: 
+      context: ./APIGateway
+      dockerfile: Dockerfile
+    container_name: apigateway_ms 
+    ports:
+      - "5003:5003"
+    environment:
+      - STORAGE_MS_URL=${STORAGE_MS_URL}
+      - AI_MS_URL=${AI_MS_URL}
+    networks:
+      - msSystem 
+    depends_on:
+      storage:
+          condition: service_started
+      ai:
+          condition: service_started
+  ai:
+    build: 
+      context: ./AiMS
+      dockerfile: Dockerfile
+    container_name: ai_ms 
+    environment:
+      - STORAGE_MS_URL=${STORAGE_MS_URL}
+    ports:
+      - "5001:5001"
+    networks:
+      - msSystem 
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  msSystem:
+    driver: bridge
+    

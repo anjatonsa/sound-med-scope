@@ -1,0 +1,6 @@
+Flask==3.0.2
+requests
+librosa
+onnxruntime
+scikit-learn
+numpy
