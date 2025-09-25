@@ -41,7 +41,7 @@ docker-compose up --build
 ```
 ### API Endpoints
 - GET http://localhost:5003/stethoscope/readings → List all recordings metadata
-- GET http://localhost:5003/get_stethoscope_file/<filename> → Download WAV file
+- GET http://localhost:5003/stethoscope/file/<filename> → Download WAV file
 - POST http://localhost:5003/predict { filename: "filename.wav"} → returns prediction
 
 
