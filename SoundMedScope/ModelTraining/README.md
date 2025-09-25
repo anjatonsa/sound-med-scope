@@ -1,19 +1,19 @@
-# Trening i konverzija modela
+# Model Training and Conversion
 
-## Pokretanje treninga
-Za treniranje modela pokrenite sledeću komandu u konzoli:
+## Running Training
+To train the model, run the following command in the console:
 
 ```bash
 python main.py
 ```
 
-Nakon izvršavanja, istrenirani model će biti sačuvan u fajlu **`best_model.keras`**.
+After execution, the trained model will be saved as **`best_model.keras`**.
 
-## Konverzija u ONNX format
-Ako želite da konvertujete model u **ONNX** format, pokrenite:
+## Conversion to ONNX Format
+If you want to convert the model to **ONNX** format, run:
 
 ```bash
 python converter.py
 ```
 
-Ovaj skript će uzeti model iz fajla **`best_model.keras`** i sačuvati ga u **`model.onnx`**.
+This script will take the model from **`best_model.keras`** and save it as **`model.onnx`**.
