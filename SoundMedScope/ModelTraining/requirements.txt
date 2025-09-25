@@ -1,0 +1,17 @@
+tensorflow==2.20.0
+keras==3.11.3
+keras2onnx==1.7.0
+tf2onnx==1.8.4
+onnx==1.19.0
+onnxruntime==1.22.1
+onnxconverter-common==1.16.0
+scikit-learn==1.7.1
+scipy==1.16.1
+pandas==2.3.2
+matplotlib==3.10.6
+seaborn==0.13.2
+librosa==0.11.0
+soundfile==0.13.1
+numba==0.61.2
+llvmlite==0.44.0
+numpy==2.2.6
